@@ -34,9 +34,13 @@ echo "Number of worker nodes on this cluster is " $nodes
 
 echo
 
-#echo "Creating $nodes Jmeter slave replicas and service"
+echo "Enter the number of jmeter-slaves [2]:"
+read num_slaves
 
+echo "Creating $num_slaves Jmeter slave replicas and service"
 echo
+
+sed -i "s~^\([[:blank:]]*\)replicas:.*$~\1replicas: $num_slaves~" $working_dir/jmeter_slaves_deploy.yaml
 
 kubectl create -n $tenant -f $working_dir/jmeter_slaves_deploy.yaml
 
