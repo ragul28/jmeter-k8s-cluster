@@ -63,6 +63,10 @@ kubectl create -n $tenant -f $working_dir/jmeter_influxdb_svc.yaml
 
 echo "Creating Grafana Deployment"
 
+kubectl create configmap datasource-config -n $tenant -f $working_dir/grafana_dashboard/datasources.yaml
+kubectl create configmap dashboard-config -n $tenant -f $working_dir/grafana_dashboard/dashboards.yaml
+kubectl create configmap dashboard-json -n $tenant -f $working_dir/grafana_dashboard/jmeterTemplate.json
+
 kubectl create -n $tenant -f $working_dir/jmeter_grafana_deploy.yaml
 
 kubectl create -n $tenant -f $working_dir/jmeter_grafana_svc.yaml

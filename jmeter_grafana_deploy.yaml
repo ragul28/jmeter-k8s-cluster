@@ -31,6 +31,33 @@ spec:
         - name: GF_AUTH_ANONYMOUS_ORG_ROLE
           value: Admin
         - name: GF_SERVER_ROOT_URL
-          # If you're only using the API Server proxy, set this value instead:
-          # value: /api/v1/namespaces/kube-system/services/monitoring-grafana/proxy
           value: /
+        resources:
+          requests:
+            cpu: 50m
+            memory: 100Mi
+        volumeMounts:
+        - name: config-datasource-yml
+          mountPath: /etc/grafana/provisioning/datasources/datasources.yaml
+          subPath: datasources.yaml
+        - name: config-dashboard-yml
+          mountPath: /etc/grafana/provisioning/dashboards/dashboards.yaml
+          subPath: dashboards.yaml
+        - name: config-dashboard-json
+          mountPath: /var/lib/grafana/dashboards/jmeter.json
+          subPath: jmeter.json
+      - name: jmreporter
+        image: kubernautslabs/jmeter-reporter:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8686
+      volumes:
+      - name: config-datasource-yml
+        configMap:
+          name: datasource-config
+      - name: config-dashboard-yml
+        configMap:
+          name: dashboard-config
+      - name: config-dashboard-json
+        configMap:
+          name: dashboard-json
