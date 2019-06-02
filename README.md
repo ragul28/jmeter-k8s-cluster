@@ -5,7 +5,12 @@
 Kubernetes > 1.8
 N.B.: this implementation was tested on Kubernetes version 1.12
 
-Edited to run on default namespace
+Change log -
+- Edited namespace as default
+- Added grafana-reporter as a sidecar container in grafana's k8s deployment
+- Grafana datasource (inflexdb) & dashboard provisioning automated
+- Added LB support to grafana service
+
 
 ## TL;DR
 
@@ -16,12 +21,6 @@ Edited to run on default namespace
 ./start_test.sh
 ```
 
-import Grafana jmeter dashboard json to grafana
-
-To genarate  the report 
-```bash
-kubectl apply -f jmeter_grafana_reporter.yaml
-```
 Grafana-reporter - https://github.com/IzakMarais/reporter
 
 ## Reference  
