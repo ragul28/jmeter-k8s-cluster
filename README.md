@@ -1,15 +1,16 @@
-# Jmeter Cluster Support for Kubernetes and OpenShift
+# Jmeter Cluster Support for Kubernetes
 
 ## Prerequisits
 
 Kubernetes > 1.8
 N.B.: this implementation was tested on Kubernetes version 1.12
 
-Change log -
+## Changelog 
 - Edited namespace as default
 - Added grafana-reporter as a sidecar container in grafana's k8s deployment
-- Grafana datasource (inflexdb) & dashboard provisioning automated
+- Grafana datasource (influxdb) & dashboard provisioning automated
 - Added LB support to grafana service
+- dashboard script automated & removed
 
 
 ## TL;DR
@@ -17,7 +18,6 @@ Change log -
 ```bash
 ./dockerimages.sh
 ./jmeter_cluster_create.sh
-./dashboard.sh
 ./start_test.sh
 ```
 
