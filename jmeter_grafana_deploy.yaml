@@ -44,8 +44,8 @@ spec:
           mountPath: /etc/grafana/provisioning/dashboards/dashboards.yaml
           subPath: dashboards.yaml
         - name: config-dashboard-json
-          mountPath: /var/lib/grafana/dashboards/jmeter.json
-          subPath: jmeter.json
+          mountPath: /var/lib/grafana/dashboards/jmeter-metric.json
+          subPath: jmeter-metric.json
       - name: jmreporter
         image: kubernautslabs/jmeter-reporter:latest
         imagePullPolicy: IfNotPresent
