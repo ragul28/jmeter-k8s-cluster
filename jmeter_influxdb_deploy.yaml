@@ -28,6 +28,9 @@ spec:
               name: api
             - containerPort: 2003
               name: graphite
+          env:
+            - name: INFLUXDB_DB
+              value: jmeter
       volumes:
       - name: config-volume
         configMap:
