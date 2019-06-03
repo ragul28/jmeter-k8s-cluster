@@ -26,6 +26,10 @@ spec:
             subPath: "load_test"
         ports:
         - containerPort: 60000
+        lifecycle:
+          postStart:
+            exec:
+              command: ["/bin/sh", "-c", "cp -r /load_test /jmeter/load_test && chmod 755 /jmeter/load_test"]
       volumes:
       - name: loadtest 
         configMap:
