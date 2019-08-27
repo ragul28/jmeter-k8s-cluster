@@ -34,9 +34,12 @@ spec:
           value: /
         resources:
           requests:
-            cpu: 50m
-            memory: 100Mi
+            cpu: 20m
+            memory: 50Mi
         volumeMounts:
+        - name: data
+          mountPath: /var/lib/grafana
+          subPath: grafana
         - name: config-datasource-yml
           mountPath: /etc/grafana/provisioning/datasources/datasources.yaml
           subPath: datasources.yaml
@@ -52,6 +55,8 @@ spec:
         ports:
         - containerPort: 8686
       volumes:
+      - emptyDir: {}
+        name: data
       - name: config-datasource-yml
         configMap:
           name: datasource-config
