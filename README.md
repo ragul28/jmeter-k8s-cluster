@@ -2,16 +2,8 @@
 
 ## Prerequisits
 
-Kubernetes > 1.8
+Kubernetes Cluster with 3 Nodes
 N.B.: this implementation was tested on Kubernetes version 1.12
-
-## Changelog 
-- Edited namespace as default
-- Added grafana-reporter as a sidecar container in grafana's k8s deployment
-- Grafana datasource (influxdb) & dashboard provisioning automated
-- Added LB support to grafana service
-- dashboard script automated & removed
-
 
 ## TL;DR
 
@@ -32,6 +24,12 @@ N.B.: this implementation was tested on Kubernetes version 1.12
     ./start_test.sh
     ```
 
+## Changelog 
+- Edited namespace as default
+- Added grafana-reporter as a sidecar container in grafana's k8s deployment
+- Grafana datasource (influxdb) & dashboard provisioning automated
+- Added LB support to grafana service
+- dashboard script automated & removed
 
 ## Reference  
 - "Load Testing Jmeter On Kubernetes" medium blog post: https://goo.gl/mkoX9E
