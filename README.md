@@ -15,14 +15,25 @@ N.B.: this implementation was tested on Kubernetes version 1.12
 
 ## TL;DR
 
-```bash
-./dockerimages.sh
-./jmeter_cluster_create.sh
-./start_test.sh
-```
+* Create jmeter-master, slave, influxdb & grafana
+    ```bash
+    ./jmeter_cluster_create.sh
+    ./dashboard.sh
+    ```
+    *(only if applicable)
 
-Grafana-reporter - https://github.com/IzakMarais/reporter
+* Add Grafana-reporter link to grafana dashboard
+    ```url
+    http://<Grafana-LB-IP>:8686/api/v5/report/ltaas
+    ```
+
+* Start load-test
+    ```bash
+    ./start_test.sh
+    ```
+
 
 ## Reference  
 - "Load Testing Jmeter On Kubernetes" medium blog post: https://goo.gl/mkoX9E
 - Original Github repo: https://github.com/kubernauts/jmeter-kubernetes
+- Grafana-reporter - https://github.com/IzakMarais/reporter
