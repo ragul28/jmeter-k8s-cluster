@@ -9,10 +9,12 @@
 # i.e. jmx file name have to be the same as directory name.
 # After execution, test script jmx file may be deleted from the pod itself but not locally.
 
+set -eo pipefail
+
 working_dir=$(pwd)
 
 # Get namesapce variable
-tenant=$(awk '{print $NF}' "$working_dir"/tenant_export)
+tenant=default
 
 jmx_dir=$1
 
@@ -30,11 +32,10 @@ printf "Copy %s to master\n" "${jmx_dir}.jmx"
 master_pod=$(kubectl get po -n "$tenant" | grep jmeter-master | awk '{print $1}')
 
 kubectl cp "${jmx_dir}/${jmx_dir}.jmx" -n "$tenant" "$master_pod":/
+# kubectl cp load_test -n "$tenant" "$master_pod":/load_test
 
 # Get slaves
-
 printf "Get number of slaves\n"
-
 slave_pods=($(kubectl get po -n "$tenant" | grep jmeter-slave | awk '{print $1}'))
 
 # for array iteration
@@ -46,10 +47,8 @@ slavedigits="${#slavesnum}"
 printf "Number of slaves is %s\n" "${slavesnum}"
 
 # Split and upload csv files
-
 for csvfilefull in "${jmx_dir}"/*.csv
-
-  do
+do
 
   csvfile="${csvfilefull##*/}"
 
@@ -69,7 +68,3 @@ for csvfilefull in "${jmx_dir}"/*.csv
   done # for i in "${slave_pods[@]}"
 
 done # for csvfile in "${jmx_dir}/*.csv"
-
-## Echo Starting Jmeter load test
-
-kubectl exec -ti -n "$tenant" "$master_pod" -- /jmeter/load_test "/${jmx_dir}.jmx"
