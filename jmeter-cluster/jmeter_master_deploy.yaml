@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta2 # for versions before 1.9.0 use apps/v1beta2
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: jmeter-master
@@ -14,6 +14,16 @@ spec:
       labels:
         jmeter_mode: master
     spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: jmeter_mode
+                operator: In
+                values:
+                - slave
+            topologyKey: "kubernetes.io/hostname"     
       containers:
       - name: jmmaster
         image: kubernautslabs/jmeter_master:latest
@@ -34,3 +44,4 @@ spec:
       - name: loadtest 
         configMap:
          name: jmeter-load-test
+         defaultMode: 0755
