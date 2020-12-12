@@ -27,22 +27,21 @@ echo "Using $tenant namespace has been created"
 echo
 
 echo "Creating Jmeter slave nodes"
-
 nodes=`kubectl get no | egrep -v "master|NAME" | wc -l`
-
-echo
 
 echo "Number of worker nodes on this cluster is " $nodes
 
-echo
-
-echo "Enter the number of jmeter-slaves [2]:"
+echo "Enter the number of jmeter-slaves [$nodes]:"
 read num_slaves
 
+if [[ -z $num_slaves ]]
+then
+    num_slaves=$nodes
+fi
 echo "Creating $num_slaves Jmeter slave replicas and service"
 echo
 
-sed -i "s~^\([[:blank:]]*\)replicas:.*$~\1replicas: $num_slaves~" $working_dir/jmeter_slaves_deploy.yaml
+sed -i "s~^\([[:blank:]]*\)replicas:.*$~\1replicas: $num_slaves~" $working_dir/jmeter-cluster/jmeter_slaves_deploy.yaml
 
 kubectl create -n $tenant -f $working_dir/jmeter_slaves_deploy.yaml
 
