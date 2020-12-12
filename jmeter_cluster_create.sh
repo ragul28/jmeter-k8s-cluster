@@ -15,13 +15,15 @@ fi
 
 kubectl version --short
 
-echo "Current list of namespaces on the kubernetes cluster:"
+echo "Enter the namespace [default]:"
+read tenant
 
-echo
+if [[ -z $tenant ]]
+then
+    tenant=default
+fi
 
-tenant=default
-echo "Using default namespace has been created"
-
+echo "Using $tenant namespace has been created"
 echo
 
 echo "Creating Jmeter slave nodes"
