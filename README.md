@@ -1,27 +1,44 @@
-# Jmeter Cluster Support for Kubernetes
+# Jmeter Cluster in Kubernetes
 
 ## Prerequisits
 
-Kubernetes Cluster with 3 Nodes
-N.B.: this implementation was tested on Kubernetes version 1.12
+- Kubernetes Cluster version 1.16+
+- Kubectl access
 
-## TL;DR
+## Setup Guide
 
 * Create jmeter-master, slave, influxdb & grafana
     ```bash
     ./jmeter_cluster_create.sh
-    ./dashboard.sh
-    ```
-    *(only if applicable)
-
-* Add Grafana-reporter link to grafana dashboard
-    ```url
-    http://<Grafana-LB-IP>:8686/api/v5/report/ltaas
     ```
 
-* Start load-test
+* grafana dashboard (optional)
+    ```
+    ./grafana-dashboard/dashboard.sh
+    ```
+* Add Grafana-reporter link to `http://<Grafana-LB-IP>:8686/api/v5/report/ltaas` (optional)
+
+* To Start jmeter load test
     ```bash
-    ./start_test.sh
+    ./start_test.sh <jmx_file_path>
+    ```
+
+### Start load-test with csv
+
+* To run the load test
+    ```bash
+    ./start_csv_copy.sh <jmx_dir>
+    ./start_csv_test.sh <jmx_dir>
+    ```
+
+* To copy the results file as `tar.gz`
+    ```bash
+    ./copy_results.sh
+    ```
+
+* To stop the load test during the execution
+    ```bash
+    ./jmetet_stop.sh
     ```
 
 ## Changelog 
@@ -29,7 +46,9 @@ N.B.: this implementation was tested on Kubernetes version 1.12
 - Added grafana-reporter as a sidecar container in grafana's k8s deployment
 - Grafana datasource (influxdb) & dashboard provisioning automated
 - Added LB support to grafana service
-- dashboard script automated & removed
+- Move kube manifest separate directory
+- Separated csv copy & load test function
+- Added support to generate native jmeter report & copy back to local  
 
 ## Reference  
 - "Load Testing Jmeter On Kubernetes" medium blog post: https://goo.gl/mkoX9E
