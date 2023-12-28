@@ -1,7 +1,7 @@
 FROM eclipse-temurin:8-jre-focal
 MAINTAINER ragul28
 		
-ARG JMETER_VERSION=5.0
+ARG JMETER_VERSION=5.6.2
 		
 RUN apt-get clean && \
 apt-get update && \
