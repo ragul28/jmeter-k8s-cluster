@@ -1,5 +1,5 @@
-FROM openjdk:8-jdk-slim
-MAINTAINER Kubernauts-lab
+FROM eclipse-temurin:8-jre-focal
+MAINTAINER ragul28
 		
 ARG JMETER_VERSION=5.0
 		
