@@ -39,7 +39,7 @@ jobs:
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            ${{ env.GHCR_REPO }}/jmeter-base:${{ env.RELEASE_VERSION }}
+            ${{ env.GHCR_REPO }}/jmeter-base:${{ env.RELEASE_VERSION }},${{ env.GHCR_REPO }}/jmeter-base:latest
         if: github.event_name != 'pull_request'
 
       - name: Build master docker image
@@ -50,7 +50,7 @@ jobs:
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            ${{ env.GHCR_REPO }}/jmeter-master:${{ env.RELEASE_VERSION }}
+            ${{ env.GHCR_REPO }}/jmeter-master:${{ env.RELEASE_VERSION }},${{ env.GHCR_REPO }}/jmeter-master:latest
         if: github.event_name != 'pull_request'
 
       - name: Build slave docker image
@@ -61,5 +61,5 @@ jobs:
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            ${{ env.GHCR_REPO }}/jmeter-slave:${{ env.RELEASE_VERSION }}
+            ${{ env.GHCR_REPO }}/jmeter-slave:${{ env.RELEASE_VERSION }},${{ env.GHCR_REPO }}/jmeter-base:latest
         if: github.event_name != 'pull_request'
