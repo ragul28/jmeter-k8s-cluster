@@ -16,16 +16,6 @@ jobs:
       RELEASE_VERSION: "${{  github.ref_name }}"
       GHCR_REPO: "ghcr.io/ragul28/jmeter-k8s-cluster"
 
-    strategy:
-      matrix:
-        file_tag:
-          - file: ./docker-files/master.Dockerfile
-            service: jmeter-master
-            context: ./docker-files
-          - file: ./docker-files/slave.Dockerfile
-            service: jmeter-slave
-            context: ./docker-files
-            
     steps:
 
       - name: Check out code
@@ -50,22 +40,26 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
             ${{ env.GHCR_REPO }}/jmeter-base:${{ env.RELEASE_VERSION }}
-          cache-from: type=gha
-          cache-to: type=gha
         if: github.event_name != 'pull_request'
 
-      - name: Set up Docker matrix buildx
-        uses: docker/setup-buildx-action@v3
-        with:
-          config-inline: |
-            [worker.oci]
-              max-parallelism = 2
-      - name: Matrix Build and push images
+      - name: Build master docker image
         uses: docker/build-push-action@v5
         with:
-          context: ${{ matrix.file_tag.context }}
-          file: ${{ matrix.file_tag.file }}
+          context: .
+          file: ./docker-files/master.Dockerfile
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            ${{ env.GHCR_REPO }}/${{ matrix.file_tag.service }}:${{ env.RELEASE_VERSION }}
+            ${{ env.GHCR_REPO }}/jmeter-master:${{ env.RELEASE_VERSION }}
+        if: github.event_name != 'pull_request'
+
+      - name: Build slave docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./docker-files/slave.Dockerfile
+          platforms: linux/amd64
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: |
+            ${{ env.GHCR_REPO }}/jmeter-slave:${{ env.RELEASE_VERSION }}
+        if: github.event_name != 'pull_request'
