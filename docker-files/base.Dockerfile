@@ -1,7 +1,7 @@
-FROM openjdk:8-jdk-slim
-MAINTAINER Kubernauts-lab
+FROM eclipse-temurin:8-jre-focal
+MAINTAINER ragul28
 		
-ARG JMETER_VERSION=5.0
+ARG JMETER_VERSION=5.6.2
 		
 RUN apt-get clean && \
 apt-get update && \
@@ -12,7 +12,7 @@ iputils-ping \
 unzip
 RUN   mkdir /jmeter \
 && cd /jmeter/ \
-&& wget https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-$JMETER_VERSION.tgz \
+&& wget -nv https://archive.apache.org/dist/jmeter/binaries/apache-jmeter-$JMETER_VERSION.tgz \
 && tar -xzf apache-jmeter-$JMETER_VERSION.tgz \
 && rm apache-jmeter-$JMETER_VERSION.tgz
 
