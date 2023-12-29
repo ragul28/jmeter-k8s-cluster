@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: grafana
-        image: grafana/grafana:6.7
+        image: grafana/grafana:6.7.5
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 3000
@@ -50,7 +50,7 @@ spec:
           mountPath: /var/lib/grafana/dashboards/jmeter-metric.json
           subPath: jmeter-metric.json
       - name: jmreporter
-        image: kubernautslabs/jmeter-reporter:latest
+        image: izakmarais/grafana-reporter:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8686
