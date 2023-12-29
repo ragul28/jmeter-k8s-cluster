@@ -5,10 +5,10 @@
 
 set -eo pipefail
 
-working_dir="`pwd`"
+working_dir=`pwd`
 
 #Get namesapce variable
-tenant=default
+tenant=`awk '{print $NF}' $working_dir/tenant_export`
 
 jmx="$1"
 [ -n "$jmx" ] || read -p 'Enter path to the jmx file ' jmx

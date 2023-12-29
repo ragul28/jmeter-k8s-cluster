@@ -2,21 +2,25 @@
 
 ## Prerequisits
 
-- Kubernetes Cluster version 1.16+
+- Kubernetes Cluster version 1.27+
 - Kubectl access
 
 ## Setup Guide
 
-* Create jmeter-master, slave, influxdb & grafana
+* Create jmeter cluster. Script inputs are `namespace` (for default press enter) & `Slave count` (Default count depends on worker nodes).  
     ```bash
     ./jmeter_cluster_create.sh
     ```
 
-* grafana dashboard (optional)
+* Create grafana, reporter & Influxdb for dashboard (optional)
     ```
-    ./grafana-dashboard/dashboard.sh
+    ./dashboard.sh
     ```
-* Add Grafana-reporter link to `http://<Grafana-LB-IP>:8686/api/v5/report/ltaas` (optional)
+* To access the Grafana dashboard use LB url from grafana service. Or use Kube port-forward to access.
+    ```bash
+    kubectl port-forward svc/jmeter-grafana 3000
+    ```
+* To generate Grafana-reporter add following endpoint `http://<GRAFANA_LB_URL>:8686/api/v5/report/ltaas` as dashboard link. [Visual guide](https://github.com/IzakMarais/reporter/blob/master/demo/report_v5.gif).
 
 * To Start jmeter load test
     ```bash

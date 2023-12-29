@@ -51,7 +51,7 @@
       "title": "Report",
       "tooltip": "open report",
       "type": "link",
-      "url": "http://35.238.101.189:8686/api/v5/report/ltaas"
+      "url": "http://localhost:8686/api/v5/report/ltaas"
     }
   ],
   "panels": [
