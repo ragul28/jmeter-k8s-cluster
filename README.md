@@ -20,7 +20,7 @@
     ```bash
     kubectl port-forward svc/jmeter-grafana 3000
     ```
-* For Grafana-reporter add link `http://<GRAFANA_LB_URL>:8686/api/v5/report/ltaas` to dashboard. [Visual guide of process](https://github.com/IzakMarais/reporter/blob/master/demo/report_v5.gif).
+* To generate Grafana-reporter add following endpoint `http://<GRAFANA_LB_URL>:8686/api/v5/report/ltaas` as dashboard link. [Visual guide](https://github.com/IzakMarais/reporter/blob/master/demo/report_v5.gif).
 
 * To Start jmeter load test
     ```bash
