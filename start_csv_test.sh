@@ -39,7 +39,6 @@ kubectl exec -ti -n "$tenant" "$master_pod" -- /jmeter/load_test "/${jmx_dir}.jm
 # kubectl exec -ti -n "$tenant" "$master_pod" -- bash -c "/jmeter/load_test "/${jmx_dir}.jmx > /dev/null 2> /dev/null &" 
 
 # to check the logs
-# kubectl exec jmeter-master-7755b94449-2gpnt -- tail -f jmeter.log
+# kubectl -n "$tenant" "$master_pod" -- tail -f jmeter.log
 
-mkdir results 
 kubectl cp -n "$tenant" "$master_pod":/results.tar.gz results.tar.gz
