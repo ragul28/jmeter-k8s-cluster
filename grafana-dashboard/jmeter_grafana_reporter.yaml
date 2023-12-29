@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: jmreporter
-        image: kubernautslabs/jmeter-reporter:latest
+        image: izakmarais/grafana-reporter:latest
         imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 8686

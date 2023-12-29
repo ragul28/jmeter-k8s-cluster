@@ -11,10 +11,10 @@
 
 set -eo pipefail
 
-working_dir=$(pwd)
+working_dir=`pwd`
 
-# Get namesapce variable
-tenant=default
+#Get namesapce variable
+tenant=`awk '{print $NF}' $working_dir/tenant_export`
 
 jmx_dir=$1
 
