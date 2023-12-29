@@ -14,6 +14,7 @@ data:
     else
         mkdir csv report
     fi
+    ln -s /jmeter/apache-jmeter-* /jmeter/apache-jmeter
     /jmeter/apache-jmeter-*/bin/jmeter -n -t $1 -Dserver.rmi.ssl.disable=true -R `getent ahostsv4 jmeter-slaves-svc | cut -d' ' -f1 | sort -u | awk -v ORS=, '{print $1}' | sed 's/,$//'` -l /csv/Res.csv -e -o /report
     if [ -d "report" ]; then
         TIMESTAMP=`date +%Y-%m-%d_%H-%M-%S`

@@ -1,0 +1,22 @@
+piVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: jmeter-cluster
+  region: us-west-1
+
+nodeGroups:
+  - name: nodegroup-1
+    instanceType: t3a.small
+    desiredCapacity: 3
+    volumeSize: 80
+    ssh:
+      allow: true # will use ~/.ssh/id_rsa.pub as the default ssh key
+    iam:
+      withAddonPolicies:
+        autoScaler: true
+        ebs: true
+        efs: true
+        albIngress: true
+        xRay: false
+        cloudWatch: true
