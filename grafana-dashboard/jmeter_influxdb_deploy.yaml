@@ -28,6 +28,13 @@ spec:
         - image: influxdb:1.8
           imagePullPolicy: IfNotPresent
           name: influxdb
+          resources:
+            requests:
+              memory: "100Mi"
+              cpu: "20m"
+            limits:
+              memory: "350Mi"
+              cpu: "200m"
           volumeMounts:
           - name: config-volume
             mountPath: /etc/influxdb
